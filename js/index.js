@@ -276,6 +276,7 @@ async function stackTokens() {
         let balMainAllowance = await oContractToken.methods.allowance(selectedAccount, _CONTRACT_DATA[_NETWORK_ID].STACKING[sClass].address).call();
 
         console.log('balMainAllowance', balMainAllowance);
+		// alert(balMainAllowance);
 
         if(Number(balMainAllowance) < Number(tokenToTransfer)) {
             approveTokenSpend(tokenToTransfer, sClass);

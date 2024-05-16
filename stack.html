@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>存证数据</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+  <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+  <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+  <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+
+  <style>
+    body {
+      background: #000;
+      color: #351986;
+    }
+
+    .nav {
+      padding: 15px;
+    }
+
+    .create_payment {
+      background: #1c2125;
+      border: 1px solid #232a30;
+      border-radius: 10px;
+      padding: 20px;
+      color: #a0c4e2;
+    }
+
+    .create_btn {
+      background: linear-gradient(89.99deg, #f44554 .42%, #3271e1 104.54%);
+      border-radius: 5px;
+      color: #fff;
+      width: 50%;
+      margin: 30px auto;
+      display: block;
+      padding: 12px;
+      font-size: 18px;
+      border: 0;
+    }
+    .connect_with {
+    background: #1c2125;
+    border: 0;
+    border-radius: 10px;
+    padding: 20px;
+}
+    .connect_with .info{
+      color: #fff;
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 23px;
+    margin-bottom: 10px;
+    text-align: center;
+    }
+    .connect_with .type_cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+    .connect_with .type_cards .type_card {
+    align-items: center;
+    background: #242a2f;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 20px;
+    padding: 20px;
+    width: 48%;
+}
+.connect_with .type_cards .type_card>h2 {
+    color: #fff;
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
+    margin: 0 0 20px;
+    text-align: center;
+}
+.connect_with .type_cards .type_card>p {
+    color: #a0c4e2;
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <a class="navbar-brand" href="./index.html">logo-img</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+     <input type="number" value="" />
+	 <button id="zhiya">质押</button>
+
+    </div>
+  </div>
+
+  <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"
+    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+    crossorigin="anonymous"></script>
+  <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+  <script src="./web3.min.js"></script>
+  <script src="./layer_mobile/layer.js"></script>
+  <script>
+    const contractABI = [{"inputs":[{"internalType":"address","name":"_tokenAddress","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"_address","type":"address"},{"indexed":false,"internalType":"uint256","name":"_amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"_timestamp","type":"uint256"}],"name":"RewardSent","type":"event"},{"inputs":[],"name":"_totalStakes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"availableTokens","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceuser","outputs":[{"internalType":"uint256","name":"b","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_stake","type":"uint256"},{"internalType":"uint256","name":"_stakingPackage","type":"uint256"},{"internalType":"address","name":"account","type":"address"}],"name":"canStake","outputs":[{"internalType":"bool","name":"b","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"claimReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_stake","type":"uint256"},{"internalType":"uint256","name":"_stakingPackage","type":"uint256"}],"name":"createStake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"distributeReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getState","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"isStakeholder","outputs":[{"internalType":"bool","name":"","type":"bool"},{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"removeAllMyStakes","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_stake","type":"uint256"}],"name":"removeSomeStake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"rewardDistributionIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_stakeholder","type":"address"}],"name":"rewardOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_tokenAddress","type":"address"}],"name":"setAddress","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_percentage","type":"uint256"}],"name":"setApyPercentage","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"_stakeholder","type":"address"}],"name":"stakeOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"tokenAddress","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalRewardDistributed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalStakes","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+    const contractAddress = '0x5AF9C7dFA0b57852C6900F5E3F2a5eDB7259b7e5';
+
+    $(document).ready(function () {
+      if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+          let option = {};
+          // 请求用户授权
+          ethereum.send('eth_requestAccounts').then(async () => {
+            const accounts = await web3.eth.getAccounts();
+            option = { from: accounts[0] };
+          });
+
+          // 实例化合约
+          const myContract = new web3.eth.Contract(contractABI, contractAddress);
+
+          $('#zhiya').click(function (event) {
+            myContract.methods.createStake(1,1).send(option, (error, transactionHash) => {
+              console.log(transactionHash);
+              
+            });
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      // 如果没有检测到MetaMask，给出提示
+      else {
+        layer.open({ content: "请先安装浏览器的MetaMask插件！", skin: "msg", time: 5 });
+      }
+    });
+  </script>
+</body>
+
+</html>
