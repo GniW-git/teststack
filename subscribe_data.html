@@ -102,7 +102,7 @@
   <body>
     <div class="container">
       <div class="nav">
-        <a class="navbar-brand" href="./index.html">logo-img</a>
+        <a class="navbar-brand" href="./index.html" style="padding: 0;"><img style="height:100%" src="assets/logo.png" /></a>
       </div>
     </div>
 
@@ -134,7 +134,7 @@
             <button type="button" id="submitBtn" class="btn btn-default create_btn">提交订阅</button>
           </form>
 		  
-		  <button type="button" id="getdata" class="btn btn-default create_btn">查看我的订阅</button>
+		  <!-- <button type="button" id="getdata" class="btn btn-default create_btn">查看我的订阅</button> -->
         </div>
       </div>
       
@@ -149,408 +149,326 @@
     <script>
       const contractABI = [
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_user",
+				"name": "_evilUser",
 				"type": "address"
 			}
 		],
 		"name": "addBlackList",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "spender",
+				"name": "_spender",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "value",
+				"name": "_value",
 				"type": "uint256"
 			}
 		],
 		"name": "approve",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
 		],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "name",
+				"name": "_upgradedAddress",
+				"type": "address"
+			}
+		],
+		"name": "deprecate",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_blackListedUser",
+				"type": "address"
+			}
+		],
+		"name": "destroyBlackFunds",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_tokenAddress",
+				"type": "address"
+			},
+			{
+				"name": "_name",
 				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "symbol",
+				"name": "_symbol",
 				"type": "string"
 			},
 			{
-				"internalType": "uint8",
-				"name": "decimals_",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "initialSupply",
+				"name": "_decimals",
 				"type": "uint256"
 			}
 		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "allowance",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "needed",
-				"type": "uint256"
-			}
-		],
-		"name": "ERC20InsufficientAllowance",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "balance",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "needed",
-				"type": "uint256"
-			}
-		],
-		"name": "ERC20InsufficientBalance",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "approver",
-				"type": "address"
-			}
-		],
-		"name": "ERC20InvalidApprover",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			}
-		],
-		"name": "ERC20InvalidReceiver",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			}
-		],
-		"name": "ERC20InvalidSender",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			}
-		],
-		"name": "ERC20InvalidSpender",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "OwnableInvalidOwner",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "OwnableUnauthorizedAccount",
-		"type": "error"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "spender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "BlackListAdded",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			}
-		],
-		"name": "BlackListRemoved",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "burn",
+		"name": "init",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "burnFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "mint",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
+		"constant": false,
 		"inputs": [],
 		"name": "pause",
 		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "Paused",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_user",
+				"name": "_clearedUser",
 				"type": "address"
 			}
 		],
 		"name": "removeBlackList",
 		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "host",
+				"type": "string"
+			},
+			{
+				"name": "data_",
+				"type": "string"
+			},
+			{
+				"name": "priceHour",
+				"type": "uint32"
+			},
+			{
+				"name": "tryHour",
+				"type": "uint32"
+			},
+			{
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "saveData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "dataId",
+				"type": "uint256"
+			},
+			{
+				"name": "approveToken",
+				"type": "uint256"
+			},
+			{
+				"name": "inc",
+				"type": "bool"
+			},
+			{
+				"name": "authcode",
+				"type": "string"
+			}
+		],
+		"name": "subscribeData",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "unpause",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "updateAllSubscription",
+		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
+		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "function"
+		"type": "constructor"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "_host",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_data",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_pricePerHour",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tryHour",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tokenAmountPerData",
+				"indexed": false,
+				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "storeData",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "Issue",
+		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_dataId",
+				"indexed": false,
+				"name": "amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_approveToken",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "inc",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "_authcode",
-				"type": "string"
 			}
 		],
-		"name": "subscribe",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "Redeem",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "newAddress",
+				"type": "address"
+			}
+		],
+		"name": "Deprecate",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "feeBasisPoints",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "maxFee",
+				"type": "uint256"
+			}
+		],
+		"name": "Params",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "subscriber",
 				"type": "address"
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "author",
 				"type": "address"
 			}
@@ -559,47 +477,61 @@
 		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "to",
+				"indexed": false,
+				"name": "_blackListedUser",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "value",
+				"indexed": false,
+				"name": "_balance",
 				"type": "uint256"
 			}
 		],
-		"name": "transfer",
-		"outputs": [
+		"name": "DestroyedBlackFunds",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"indexed": false,
+				"name": "_user",
+				"type": "address"
 			}
 		],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "AddedBlackList",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "RemovedBlackList",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "from",
 				"type": "address"
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -608,359 +540,455 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "unpause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "Unpaused",
+		"inputs": [],
+		"name": "Pause",
 		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [],
-		"name": "updateAllSubscriptions",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "Unpause",
+		"type": "event"
 	},
 	{
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "_totalSupply",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "_dataId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_host",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_data",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_pricePerHour",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_tryHour",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "updateData",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "withdrawTokens",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
+				"name": "_owner",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
-				"name": "spender",
+				"name": "_spender",
 				"type": "address"
 			}
 		],
 		"name": "allowance",
 		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
+				"name": "remaining",
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "allSaveCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "allSubscription",
+		"outputs": [
+			{
+				"name": "author",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "authorDataIndex",
-		"outputs": [
+				"name": "subscriber",
+				"type": "address"
+			},
 			{
-				"internalType": "uint256",
-				"name": "",
+				"name": "authcode",
+				"type": "string"
+			},
+			{
+				"name": "startTimestamp",
 				"type": "uint256"
+			},
+			{
+				"name": "dataIndex",
+				"type": "uint256"
+			},
+			{
+				"name": "tryHour",
+				"type": "uint256"
+			},
+			{
+				"name": "priceHour",
+				"type": "uint32"
+			},
+			{
+				"name": "approveToken",
+				"type": "uint256"
+			},
+			{
+				"name": "cancelToken",
+				"type": "uint256"
+			},
+			{
+				"name": "expire",
+				"type": "bytes1"
+			},
+			{
+				"name": "paid",
+				"type": "bytes1"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "allSubscriptionCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "account",
+				"name": "who",
 				"type": "address"
 			}
 		],
 		"name": "balanceOf",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "dataCount",
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "balances",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "basisPointsRate",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "str_",
+				"type": "string"
+			}
+		],
+		"name": "calcToken",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "decimals",
 		"outputs": [
 			{
-				"internalType": "uint8",
 				"name": "",
-				"type": "uint8"
+				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "deprecated",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_dataId",
+				"name": "id",
 				"type": "uint256"
 			}
 		],
 		"name": "fetchSaveData",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			},
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
 				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
+				"type": "uint32"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_startId",
+				"name": "authcode",
+				"type": "string"
+			},
+			{
+				"name": "pageIndex",
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_endId",
+				"name": "pageRows",
 				"type": "uint256"
 			}
 		],
 		"name": "fetchSaveDatas",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "index",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "author",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "host",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "data",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "pricePerHour",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "tryHour",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct DataStorageToken.Data[]",
 				"name": "",
-				"type": "tuple[]"
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_dataId",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "frozen",
+		"outputs": [
+			{
+				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "who",
+				"type": "address"
+			}
+		],
+		"name": "frozenOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_maker",
+				"type": "address"
+			}
+		],
+		"name": "getBlackListStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "authcode",
+				"type": "string"
 			},
 			{
-				"internalType": "string",
-				"name": "_authcode",
-				"type": "string"
+				"name": "dataIndex",
+				"type": "uint256"
 			}
 		],
 		"name": "getData",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				"name": "authcode",
+				"type": "string"
 			},
 			{
-				"internalType": "address",
+				"name": "host",
+				"type": "string"
+			},
+			{
+				"name": "dataIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "getDataByIndex",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOwner",
+		"outputs": [
+			{
 				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "hasTry",
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getValidSubscriptionCount",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "initialized",
+		"outputs": [
+			{
 				"name": "",
 				"type": "bool"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -968,231 +996,142 @@
 		"name": "isBlackListed",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "maximumFee",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "name",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [],
 		"name": "paused",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "storedData",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "author",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "host",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "data",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "pricePerHour",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tryHour",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "subscriptionCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "subscriptionHistory",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "subscriptions",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "subscriber",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "startTimestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "approveToken",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "cancelToken",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "dataId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "duration",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "pricePerHour",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenAmountPerData",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "authcode",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "paid",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
+		"constant": true,
 		"inputs": [],
 		"name": "symbol",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
 		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "token",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "totalSupply",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "upgradedAddress",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "userDataCount",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
 	}
 ];
-      const contractAddress = '0xc14E2C733a333252e89B1757901D96EbA3A34044';
+      const contractAddress = '0x19e9cDC965Ed9901Ec95913BAB6f79c3D4DA40aa';
 
       $.urlParam = function(name){
         const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -1246,7 +1185,7 @@
 					  let getData = await myContract.methods.subscriptionHistory('0xf1B9Bf90703dFE58a86D68aBd57CaBa224b37A03',"0xAEde8B33500DECcC35C36f57E869bf6c998a325D",0).call();
 					  			console.log('getData',getData);
 								console.log('dataId,authcode',dataId,authcode);
-						let getData2 = await myContract.methods.getData(dataId,authcode).call(option);
+						let getData2 = await myContract.methods.getData(authcode,dataId).call(option);
 									console.log('getData2',getData2);		
 								alert(getData2);
 				  })
